@@ -39,6 +39,7 @@
             <li class="active"><a href="index.html">Home</a></li>
             <li><a href="empresa.html">Empresa</a></li>
             <li><a href="servicos.html">Serviços</a></li>
+            <li><a href="obras.html">Obras</a></li>
             <li><a href="contato.html">Contato</a></li>
           </ul>
         </ul>
@@ -64,33 +65,34 @@
       <div class="container">
           <div class="row">
                 <div class="col-md-6">
-                          <form>
+                          <form action="enviar.php" method="post">
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Nome Completo</label>
-                                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nome">
+                                  <input type="text" name="nome" class="form-control" id="formGroupExampleInput" placeholder="Nome">
                                 </div>
 
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Telefone</label>
-                                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="(11)0000-0000">
+                                  <input type="text" name="telefone" class="form-control" id="formGroupExampleInput" placeholder="(11)0000-0000">
                                 </div>
 
                                 <div class="form-group">
-                                  <label for="exampleFormControlInput1">Email</label>
-                                  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@exemplo.com">
+                                  <label for="eampleFormControlInput1">Email</label>
+                                  <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="nome@exemplo.com">
                                 </div>
 
                                 <div class="form-group">
                                   <label for="formGroupExampleInput">Assunto</label>
-                                  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Assunto">
+                                  <input type="text" name="assunto" class="form-control" id="formGroupExampleInput" placeholder="Assunto">
                                 </div>
 
                                 <div class="form-group">
                                   <label for="exampleFormControlTextarea1">Mensagem</label>
-                                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+                                  <textarea class="form-control" name="msg" id="exampleFormControlTextarea1" rows="7"></textarea>
                                 </div>
 
-                                <a href="empresa.html"><button class="btn_saiba_mais" type="button" name="button">Enviar</button></a>
+                                <input type="reset" class="btn_saiba_mais" value="Limpar" />
+                                <input type="submit" class="btn_saiba_mais" value="Enviar" />
                           </form>
                 </div>
 
@@ -100,8 +102,6 @@
                     </div>
                 </div>
           </div>
-
-
     </div><!-- /.container -->
   </div><!-- FIM CONTEUDO TOTAL -->
 
@@ -148,5 +148,33 @@
     <!-- Inclui todos os plugins compilados (abaixo), ou inclua arquivos separadados se necessário -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script>
+
+        (function(){
+
+            var search = window.location.search;
+
+            if(search.length > 0) {
+                var params = search.replace('?', '').split('=');
+                var status = params[1];
+                var className  = '';
+                var msg    = '';
+
+                if(status === 'enviado') {
+                    className = 'alert-success';
+                    msg = 'Mensagem enviada com sucesso!';
+                } else {
+                    className = 'alert-danger';
+                    msg = 'Ocorreu um erro, por favor verifique se todos os campos estão preenchidos!';
+                }
+
+                $('.conteudo_total_contato form').prepend(
+                    '<div class="alert '+ className +'">' + msg + '</div>'
+                );
+            }
+
+        })();
+
+    </script>
   </body>
 </html>
